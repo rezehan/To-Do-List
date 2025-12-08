@@ -2,7 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function InputSection() {
-    const [tasks, setTasks] = useState('');
+    const [tasks, setTasks] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [inputTitle, setInputTitle] = useState('');
     const [inputDescription, setInputDescription] = useState('');
 
@@ -32,7 +33,6 @@ export default function InputSection() {
             alert("Gagal menyimpan data ke server");
         }
     };
-
     return (
         <div className="mb-6 space-y-3">
             <input

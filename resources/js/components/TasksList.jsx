@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function TasksList() {
-  const [tasks, setTasks] = useState([
-    { id: 1, title: 'Selamat datang di To-Do List Anda', description: 'Mulai kelola tugas Anda dengan lebih efektif', completed: false },
-    { id: 2, title: 'Klik untuk menandai tugas selesai', description: 'Gunakan checkbox untuk menandai tugas yang sudah selesai', completed: false }
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+          // Ganti URL sesuai port Laravel kamu
+          axios.get('http://127.0.0.1:8000/api/todos')
+              .then(response => {
+                  // Masukkan data dari API ke State
+                  setTasks(response.data);
+              })
+              .catch(error => {
+                  console.error("Ada error!", error);
+              });
+      }, []);
 
   const toggleTask = (id) => {
     setTasks(tasks.map(task =>
